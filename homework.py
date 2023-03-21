@@ -1,5 +1,6 @@
 class InfoMessage:
     """Информационное сообщение о тренировке."""
+
     def __init__(self,
                  training_type,
                  duration,
@@ -22,6 +23,7 @@ class InfoMessage:
 
 class Training:
     """Базовый класс тренировки."""
+
     LEN_STEP = 0.65
     M_IN_KM = 1000
     MIN_IN_H = 60
@@ -58,13 +60,9 @@ class Training:
 
 class Running(Training):
     """Тренировка: бег."""
+
     CALORIES_MEAN_SPEED_MULTIPLIER = 18
     CALORIES_MEAN_SPEED_SHIFT = 1.79
-
-    def __init__(self, action: int,
-                 duration: float,
-                 weight: float):
-        super().__init__(action, duration, weight)
 
     def get_spent_calories(self) -> float:
         return ((self.CALORIES_MEAN_SPEED_MULTIPLIER
@@ -74,6 +72,7 @@ class Running(Training):
 
 class SportsWalking(Training):
     """Тренировка: спортивная ходьба."""
+
     CALORIES_MEAN_SPEED_MULTIPLIER_SW1 = 0.035
     CALORIES_MEAN_SPEED_MULTIPLIER_SW2 = 0.029
     KOEF_MS = 0.278
@@ -96,6 +95,7 @@ class SportsWalking(Training):
 
 class Swimming(Training):
     """Тренировка: плавание."""
+
     LEN_STEP = 1.38  # Stroke.
     MET_1 = 1.1
     MET_2 = 2
@@ -127,7 +127,7 @@ def read_package(workout_type: str, data: list) -> Training:
 
     if workout_type in workout_abbr:
         return workout_abbr[workout_type](*data)
-    return 'Error'
+    return ''
 
 
 def main(training: Training) -> None:
