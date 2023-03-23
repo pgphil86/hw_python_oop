@@ -47,15 +47,16 @@ class Training:
 
     def get_spent_calories(self) -> float:
         """Получить количество затраченных калорий."""
-        pass
+        raise NotImplementedError(None)
 
     def show_training_info(self) -> InfoMessage:
         """Вернуть информационное сообщение о выполненной тренировке."""
-        return InfoMessage(self.__class__.__name__,
+        return InfoMessage(type(self).__name__,
                            self.duration,
                            self.get_distance(),
                            self.get_mean_speed(),
-                           self.get_spent_calories())
+                           self.get_spent_calories(),
+                           )
 
 
 class Running(Training):
@@ -121,13 +122,13 @@ class Swimming(Training):
 
 def read_package(workout_type: str, data: list) -> Training:
     """Прочитать данные полученные от датчиков."""
-    workout_abbr = {'SWM': Swimming,
-                    'RUN': Running,
-                    'WLK': SportsWalking}
+    workout_names = {'SWM': Swimming,
+                     'RUN': Running,
+                     'WLK': SportsWalking}
 
-    if workout_type in workout_abbr:
-        return workout_abbr[workout_type](*data)
-    return ''
+    if workout_type in workout_names:
+        return workout_names[workout_type](*data)
+    raise Exception('Packages error.')
 
 
 def main(training: Training) -> None:
