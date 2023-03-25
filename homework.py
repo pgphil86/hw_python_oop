@@ -121,7 +121,7 @@ def read_package(workout_type: str, data: list) -> Training:
         'RUN': Running,
         'WLK': SportsWalking
     }
-    if workout_type is None:
+    if workout_type not in workout_names:
         raise Exception('Packages_Error.')
     return workout_names[workout_type](*data)
 
